@@ -1,2 +1,6 @@
 /Users/KarimM/GoogleDrive/PhD/Courses/Databases/project/doppelgangerFinder/lfw/
 lfw/
+lfw_Preprocessed/
+output/
+uploads/
+*.pyc
