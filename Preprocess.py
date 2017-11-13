@@ -24,10 +24,16 @@ def loadImage( basename, name, number):
 def loadImagePairFromRow(basename, r):
     if(len(r) == 3):
         # same
-        return [loadImage( basename, r[0], r[1]), loadImage(basename, r[0], r[2])]
+        im = np.array([loadImage( basename, r[0], r[1]), loadImage(basename, r[0], r[2])])
+        if any(x is None for x in im):
+            return None
+        return im
     else:
         # different
-        return [loadImage( basename, r[0], r[1]), loadImage( basename, r[2], r[3])]
+        im = np.array([loadImage( basename, r[0], r[1]), loadImage( basename, r[2], r[3])])
+        if any(x is None for x in im):
+            return None
+        return im
 
 def loadLabelsFromRow(r):
     if(len(r) == 3):
@@ -42,7 +48,9 @@ def load_images(split, basename, rows):
     image_list = []
     labels = []
     for i, row in enumerate(rows):
-        if ((loadImagePairFromRow(basename, row)[0] != None) & (loadImagePairFromRow(basename, row)[1] != None)):
+        if (loadImagePairFromRow(basename, row) is None):
+            continue
+        else:
             image_list.append(loadImagePairFromRow( basename, row))
             labels.append(loadLabelsFromRow(row))
     return np.array(image_list), np.array(labels)
