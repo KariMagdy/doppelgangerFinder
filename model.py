@@ -17,6 +17,7 @@ from Preprocess import convert_lfw,cropImage
 import matplotlib.pyplot as plt
 import argparse
 import sys
+from keras.utils import plot_model
 
 
 def train(args):
@@ -69,6 +70,8 @@ def train(args):
     modelA.add(Dense(1, activation='sigmoid'))
     
     print(modelA.summary())
+    plot_model(modelA, to_file='model.png',show_shapes = True, show_layer_names = False)
+
     
     modelA.compile(loss='binary_crossentropy', optimizer='adam', metrics=['binary_accuracy'])
     history = modelA.fit(train_features, train_targets, 

@@ -20,10 +20,6 @@ def getEmbeddings(image,image_size = 160):
     with tf.Graph().as_default():
       
         with tf.Session() as sess:
-            
-            # Read the file containing the pairs used for testing
-            #pairs = lfw.read_pairs(os.path.expanduser(args.lfw_pairs))
-
             # Get the paths for the corresponding images
             paths = []
             paths.append(image)
@@ -38,15 +34,12 @@ def getEmbeddings(image,image_size = 160):
             
             #image_size = images_placeholder.get_shape()[1]  # For some reason this doesn't work for frozen graphs
             embedding_size = embeddings.get_shape()[1]
-        
+
             # Run forward pass to calculate embeddings
-            print('Runnning forward pass on LFW images')
-            nrof_batches = 1
+            print('Runnning forward pass on input image')
             emb_array = np.zeros((1, embedding_size))
-            for i in range(nrof_batches):
-                images = facenet.load_data(paths, False, False, image_size)
-                feed_dict = { images_placeholder:images, phase_train_placeholder:False }
-                emb_array = sess.run(embeddings, feed_dict=feed_dict)
-    print(emb_array)
+            images = facenet.load_data(paths, False, False, image_size)
+            feed_dict = { images_placeholder:images, phase_train_placeholder:False }
+            emb_array = sess.run(embeddings, feed_dict=feed_dict)
     return emb_array
 

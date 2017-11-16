@@ -24,9 +24,14 @@ def hello_world():
 def upload_file():
     file = request.files['image']
     f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-    # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
-    y = getEmbeddings(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-    z = getEmbeddings('/Users/KarimM/Desktop/data/minecleaned/faceIV/faceIV.png')
-    samescore = str(float(np.dot(y,np.transpose(z))))
     file.save(f)
+    embeddings1 = getEmbeddings(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    file = request.files['imageII']
+    fII = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file.save(fII)
+    embeddings2 = getEmbeddings(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    diff = np.subtract(embeddings1, embeddings2)
+    dist = np.sum(np.square(diff),1)
+    samescore = str(float(4.0 - dist)/4.0 * 100.0)
+    #samescore = str(float((4.0 - np.linalg.norm(embeddings1-embeddings2))/4.0 * 100.0))
     return render_template('index.html', similarity=samescore, init=True)
