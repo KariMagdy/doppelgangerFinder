@@ -102,8 +102,8 @@ def train(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('data_dir', type=str,
-        help='Path to the data directory containing training dataset.')
+    parser.add_argument('--data_dir', type=str,
+        help='Path to the data directory containing training dataset.',default = 'lfw/')
     return parser.parse_args(argv)
 
 if __name__ == '__main__':

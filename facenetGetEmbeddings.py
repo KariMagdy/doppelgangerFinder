@@ -25,7 +25,7 @@ def getEmbeddings(image,image_size = 160):
             paths.append(image)
 
             # Load the model
-            facenet.load_model('/Users/KarimM/Desktop/project/medium-facenet-tutorial/etc/20170511-185253/20170511-185253.pb')
+            facenet.load_model('model/20170511-185253/20170511-185253.pb')
             
             # Get input and output tensors
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")

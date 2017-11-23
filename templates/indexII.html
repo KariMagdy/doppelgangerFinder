@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doppelganger Finder</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style type="text/css">
+body{text-align:center}
+body { width: 960px; margin: 200px auto; }
+</style>
+<body>
+
+</header>
+
+
+<form action="/upload" method="post" enctype="multipart/form-data" >
+    <label class="btn btn-default btn-file">
+        Upload first image <input <input type="file" name="image" style="display: none;">
+    </label>
+    <label class="btn btn-default btn-file">
+        Upload second image <input <input type="file" name="imageII" style="display: none;">
+    </label>
+    <input type="submit" value="Upload your images" class="btn btn-primary">
+</form>
+
+<div class="text-center">
+    {% if init %}
+        <div class="alert alert-success" style="margin-top:18px;">
+            <strong>Completed!</strong> similarity is {{ similarity }}%
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

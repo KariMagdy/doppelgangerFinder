@@ -13,6 +13,8 @@ import numpy as np
 
 app = Flask(__name__)
 
+app.static_folder = 'static'
+appPath = os.getcwd()
 UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -25,13 +27,13 @@ def upload_file():
     file = request.files['image']
     f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(f)
-    embeddings1 = getEmbeddings(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    embeddings1 = getEmbeddings(f)
     file = request.files['imageII']
     fII = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(fII)
-    embeddings2 = getEmbeddings(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    embeddings2 = getEmbeddings(fII)
     diff = np.subtract(embeddings1, embeddings2)
     dist = np.sum(np.square(diff),1)
-    samescore = str(float(4.0 - dist)/4.0 * 100.0)
+    samescore = str(round(float(4.0 - dist)/4.0 * 100.0,2))
     #samescore = str(float((4.0 - np.linalg.norm(embeddings1-embeddings2))/4.0 * 100.0))
-    return render_template('index.html', similarity=samescore, init=True)
+    return render_template('index.html', similarity=samescore,filenameI = os.path.join(appPath,f) , filenameII = os.path.join(appPath,fII) ,init=True)

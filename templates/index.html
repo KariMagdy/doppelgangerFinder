@@ -1,42 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Doppelganger Finder</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta name="keywords" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
+  <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.">
+  
+  <link rel="stylesheet" href={{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css')}}>
+  <link rel="stylesheet" href={{ url_for('static', filename='assets/flat-icon/flaticon.css')}}>
+  <link rel="stylesheet" href={{ url_for('static', filename='temp/styles/styles.css')}}>
 </head>
-<style type="text/css">
-body{text-align:center}
-body { width: 960px; margin: 200px auto; }
-</style>
 <body>
+    
+    <section class="service">
+      <div class="container">
+        <div class="page-section text-center">
+          <h2 class="page-section__title">Find how much you look alike!</h2>
+          <p class="page-section__paragraph">Upload images of two persons and see how much they match</p>
+          <form action="/upload" method="post" enctype="multipart/form-data" >
+          <label class="btn btn-default btn-file">
+              Upload first image <input <input type="file" name="image" style="display: none;">
+          </label>
+          <label class="btn btn-default btn-file">
+              Upload second image <input <input type="file" name="imageII" style="display: none;">
+          </label>
+          <input type="submit" value="Upload your images" class="btn btn-primary">
+      </form>
 
-</header>
+      <div class="text-center">
+          {% if init %}
+              <div class="alert alert-success" style="margin-top:18px;">
+                  <strong>Completed!</strong> similarity is {{ similarity }}%
+              </div>
+          {% endif %}
+      </div>
+
+        </div>
+      </div>
+  </div>
+    
+    
+  
+
+  <script src="assets/jquery/jquery-3.2.1.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+
+      var $videoSrc = $("#video").attr("src");
+
+      $('#myModal').on('hide.bs.modal', function (e) {
+        $("#video").attr('src',$videoSrc); 
+      });
 
 
-<form action="/upload" method="post" enctype="multipart/form-data" >
-    <label class="btn btn-default btn-file">
-        Browse the first image <input <input type="file" name="image" style="display: none;">
-    </label>
-    <label class="btn btn-default btn-file">
-        Browse the second image <input <input type="file" name="imageII" style="display: none;">
-    </label>
-    <input type="submit" value="Upload your images" class="btn btn-primary">
-</form>
 
-<div class="text-center">
-    {% if init %}
-        {% if invalidImage %}
-            <div class="alert alert-danger" style="margin-top:18px;">
-                <strong>Error</strong> Your image contain invalid content !
-            </div>
-        {% else %}
-            <div class="alert alert-success" style="margin-top:18px;">
-                <strong>Success!</strong> similarity is {{ similarity }}
-            </div>
-        {% endif %}
-    {% endif %}
-</div>
-
+    });
+  </script>
 </body>
 </html>
+
+
+
+
+
