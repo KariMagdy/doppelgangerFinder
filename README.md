@@ -6,7 +6,7 @@ The code in this directory is intended for two separate purposes:
 # Training image recognition model
 For training this model, you need to download the LFW dataset from: http://vis-www.cs.umass.edu/lfw/lfw.tgz  
 - Install the required dependencies by running pip install -r requirements.txt  
-- To start the training, run python train.py —-data_dir [pathToLFW/]   
+- To start the training, run python train.py ‘—-‘data_dir [pathToLFW/]   
 - The model architecture and loss should be displayed on the terminal.   
 - The model would be saved to model, you can load it using Keras for further experimentation.   
 
